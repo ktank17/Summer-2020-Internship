@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Meal CRUD</title>
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center">
+    <h1 style="text-align: center">Add a Meal</h1>
+    {% if meals|length < 1 %}
+    <h4 style="text-align: center">There are no meals. Add one below!</h4>
+    {% else %}
+    <table style="text-align: center">
+        <tr>
+            <th>Name of Item</th>
+            <th>Meal Option</th>
+            <th>Actions</th>
+        </tr>
+        {% for meal in meals %}
+            <tr>
+                <td>{{ meal.content }}</td>
+                <td>
+                    <select name= mealoptions method="GET" action="/">
+                        {% for mealoption in mealoptions %}
+                        <option value= "{{mealoption}}" SELECTED>{{mealoption}}</option>"
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <a href="/delete/{{meal.id}}">Delete</a>
+                    /
+                    <a href="/update/{{meal.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form" style="text-align: center">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Meal">
+        </form>
+    </div>
+</div>
+{% endblock %}
